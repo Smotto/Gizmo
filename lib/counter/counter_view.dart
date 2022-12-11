@@ -14,7 +14,6 @@ class CounterView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Counter')),
       body: Center(
         child: BlocBuilder<CounterBloc, int>(
           builder: (context, count) {

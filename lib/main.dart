@@ -1,11 +1,23 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter/material.dart';
+import 'package:gizmo/home/home_page.dart';
 import 'counter/counter.dart';
 import 'theme/theme.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 
-void main() {
+void main() async {
   Bloc.observer = AppBlocObserver();
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const App());
+
+  doWhenWindowReady(() {
+    const initialSize = Size(1368, 672);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.show();
+  });
 }
 
 /// Custom [BlocObserver] that observes all bloc and cubit state changes.
@@ -57,8 +69,9 @@ class AppView extends StatelessWidget {
     return BlocBuilder<ThemeCubit, ThemeData>(
       builder: (_, theme) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           theme: theme,
-          home: const CounterPage(),
+          home: const HomePage(),
         );
       },
     );
