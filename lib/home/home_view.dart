@@ -1,22 +1,18 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gizmo/home/bloc/home_bloc.dart';
 import '../theme/cubit/theme_cubit.dart';
 
-/// {@template counter_view}
-/// A [StatelessWidget] that:
-/// * demonstrates how to consume and interact with a [CounterBloc].
-/// {@endtemplate}
 class HomeView extends StatelessWidget {
-  /// {@macro counter_view}
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey,
       body: Row(
-        children: [
+        children: const [
           LeftSide(),
           RightSide(),
         ],
@@ -26,6 +22,8 @@ class HomeView extends StatelessWidget {
 }
 
 class LeftSide extends StatelessWidget {
+  const LeftSide({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -36,7 +34,29 @@ class LeftSide extends StatelessWidget {
           children: [
             WindowTitleBarBox(
               child: MoveWindow(),
-            )
+            ),
+            BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return Expanded(
+                  child: ListView(
+                    children: <Widget>[
+                      Card(
+                        child: ListTile(
+                          selected: true,
+                          selectedColor: Colors.white,
+                          selectedTileColor: Colors.blueGrey,
+                          leading: const FlutterLogo(),
+                          title: Text('${context.read<HomeBloc>().selectedProcess}'),
+                          onTap: () => {
+                            context.read<HomeBloc>().add(const SelectedProcessEvent("Squally"))
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
           ],
         ),
       ),
@@ -45,6 +65,8 @@ class LeftSide extends StatelessWidget {
 }
 
 class RightSide extends StatelessWidget {
+  const RightSide({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -65,7 +87,8 @@ class RightSide extends StatelessWidget {
                     colors: WindowButtonColors(normal: Colors.green),
                   ),
                   CloseWindowButton(
-                    colors: WindowButtonColors(normal: Colors.green, mouseOver: Colors.redAccent),
+                    colors: WindowButtonColors(
+                        normal: Colors.green, mouseOver: Colors.redAccent),
                   ),
                 ],
               ),
