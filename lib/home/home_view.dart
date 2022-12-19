@@ -25,6 +25,7 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
 class LeftSide extends StatelessWidget {
   const LeftSide({super.key});
 
@@ -37,17 +38,20 @@ class LeftSide extends StatelessWidget {
           WindowTitleBarBox(
             child: MoveWindow(),
           ),
-          IconButton(icon: const Icon(Icons.menu, color: Colors.black), onPressed: () {
-            _scaffoldKey.currentState?.openDrawer();
-          }),
-          IconButton(icon: const Icon(Icons.menu, color: Colors.black), onPressed: () {
-            _scaffoldKey.currentState?.openDrawer();
-          }),
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              return IconButton(
+                  icon: Icon(Icons.electrical_services_sharp,
+                      color: context.read<HomeBloc>().plugIconColor),
+                  onPressed: () {
+                    _scaffoldKey.currentState?.openDrawer();
+                  });
+            },
+          ),
         ],
       ),
     );
   }
-
 }
 
 class LeftDrawer extends StatelessWidget {
@@ -67,49 +71,53 @@ class LeftDrawer extends StatelessWidget {
             BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
                 return Expanded(
-                  child: ListView(
-                    children: [
-                      Card(
-                        child: ListTile(
-                          selected: context.read<HomeBloc>().processes[0].isActive,
-                          selectedColor: Colors.white,
-                          selectedTileColor: Colors.blueGrey,
-                          leading: const FlutterLogo(),
-                          title: Text(context.read<HomeBloc>().processes[0].name),
-                          onTap: () => {
-                            context.read<HomeBloc>().add(SelectProcessEvent(context.read<HomeBloc>().processes[0])),
-                            // Navigator.pop(context),
-                          },
-                        ),
+                  child: ListView(children: [
+                    Card(
+                      child: ListTile(
+                        selected:
+                            context.read<HomeBloc>().processes[0].isActive,
+                        selectedColor: Colors.white,
+                        selectedTileColor: Colors.blueGrey,
+                        leading: const FlutterLogo(),
+                        title: Text(context.read<HomeBloc>().processes[0].name),
+                        onTap: () => {
+                          context.read<HomeBloc>().add(SelectProcessEvent(
+                              context.read<HomeBloc>().processes[0])),
+                          Navigator.pop(context),
+                        },
                       ),
-                      Card(
-                        child: ListTile(
-                          selected: context.read<HomeBloc>().processes[1].isActive,
-                          selectedColor: Colors.white,
-                          selectedTileColor: Colors.blueGrey,
-                          leading: const FlutterLogo(),
-                          title: Text(context.read<HomeBloc>().processes[1].name),
-                          onTap: () => {
-                            context.read<HomeBloc>().add(SelectProcessEvent(context.read<HomeBloc>().processes[1])),
-                            // Navigator.pop(context),
-                          },
-                        ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        selected:
+                            context.read<HomeBloc>().processes[1].isActive,
+                        selectedColor: Colors.white,
+                        selectedTileColor: Colors.blueGrey,
+                        leading: const FlutterLogo(),
+                        title: Text(context.read<HomeBloc>().processes[1].name),
+                        onTap: () => {
+                          context.read<HomeBloc>().add(SelectProcessEvent(
+                              context.read<HomeBloc>().processes[1])),
+                          Navigator.pop(context),
+                        },
                       ),
-                      Card(
-                        child: ListTile(
-                          selected: context.read<HomeBloc>().processes[2].isActive,
-                          selectedColor: Colors.white,
-                          selectedTileColor: Colors.blueGrey,
-                          leading: const FlutterLogo(),
-                          title: Text(context.read<HomeBloc>().processes[2].name),
-                          onTap: () => {
-                            context.read<HomeBloc>().add(SelectProcessEvent(context.read<HomeBloc>().processes[2])),
-                            // Navigator.pop(context),
-                          },
-                        ),
+                    ),
+                    Card(
+                      child: ListTile(
+                        selected:
+                            context.read<HomeBloc>().processes[2].isActive,
+                        selectedColor: Colors.white,
+                        selectedTileColor: Colors.blueGrey,
+                        leading: const FlutterLogo(),
+                        title: Text(context.read<HomeBloc>().processes[2].name),
+                        onTap: () => {
+                          context.read<HomeBloc>().add(SelectProcessEvent(
+                              context.read<HomeBloc>().processes[2])),
+                          Navigator.pop(context),
+                        },
                       ),
-                    ]
-                  ),
+                    ),
+                  ]),
                 );
               },
             ),
