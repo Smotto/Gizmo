@@ -10,7 +10,15 @@ class HomeInitial extends HomeState {}
 
 class ProcessSelectedState extends HomeState {
   ProcessSelectedState(this.selectedProcess);
-  final String? selectedProcess;
+  final Process? selectedProcess;
+
+  @override
+  List<Object?> get props => [selectedProcess];
+}
+
+class ProcessDeselectedState extends HomeState {
+  ProcessDeselectedState(this.selectedProcess);
+  final Process? selectedProcess;
 
   @override
   List<Object?> get props => [selectedProcess];

@@ -2,20 +2,35 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:gizmo/models/process.dart';
 import 'package:meta/meta.dart';
 
 part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  String? selectedProcess = "";
+  Process? selectedProcess;
+  List<Process> processes = [
+    Process("Squally", 3, false),
+    Process("Notepad", 41, false),
+    Process("Discord", 72, false)];
 
   HomeBloc() : super(HomeInitial()) {
-    on<SelectedProcessEvent>(_dealWithSelectProcessEvent);
+    on<SelectProcessEvent>(_dealWithSelectProcessEvent);
   }
 
-  FutureOr<void> _dealWithSelectProcessEvent (SelectedProcessEvent event, Emitter<HomeState> emit) {
-    selectedProcess = event.processName;
-    emit(ProcessSelectedState(selectedProcess));
+  FutureOr<void> _dealWithSelectProcessEvent (SelectProcessEvent event, Emitter<HomeState> emit) {
+    if (selectedProcess?.isActive == true && selectedProcess == event.selectedProcess)
+      {
+        selectedProcess?.isActive = false;
+        emit(ProcessDeselectedState(selectedProcess));
+      }
+    else {
+      selectedProcess?.isActive = false;
+      selectedProcess = event.selectedProcess;
+      selectedProcess?.isActive ^= true;
+      emit(ProcessSelectedState(selectedProcess));
+    }
   }
+
 }

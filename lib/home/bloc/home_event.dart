@@ -7,10 +7,10 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class SelectedProcessEvent extends HomeEvent {
-  const SelectedProcessEvent(this.processName);
-  final String processName;
+class SelectProcessEvent extends HomeEvent {
+  const SelectProcessEvent(this.selectedProcess);
+  final Process selectedProcess;
 
   @override
-  List<Object> get props => [processName];
+  List<Object> get props => [selectedProcess];
 }
