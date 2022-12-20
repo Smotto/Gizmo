@@ -331,13 +331,16 @@ class RightSide extends StatelessWidget {
                       width: 250,
                       child: Column(
                         children: [
-                          const Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
                             child: TextField(
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter value',
                               ),
+                              onSubmitted: (String? value) {
+                                context.read<ScanBloc>().add(ManualScanEvent(value!));
+                              },
                             ),
                           ),
                           DropdownButton<String>(

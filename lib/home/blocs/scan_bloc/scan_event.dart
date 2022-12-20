@@ -12,3 +12,11 @@ class SelectDataTypeEvent extends ScanEvent {
   List<Object> get props => [selectedDataType];
 }
 
+class ManualScanEvent extends ScanEvent {
+  const ManualScanEvent(this.scanValue);
+  final String scanValue;
+
+  @override
+  List<Object> get props => [scanValue];
+}
+
