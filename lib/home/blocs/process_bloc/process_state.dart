@@ -2,14 +2,16 @@ part of 'process_bloc.dart';
 
 @immutable
 abstract class ProcessState extends Equatable{
-  @override
-  List<Object?> get props => [];
+  const ProcessState();
 }
 
-class ProcessInitial extends ProcessState {}
+class ProcessInitial extends ProcessState {
+  @override
+  List<Object> get props => [];
+}
 
 class ProcessSelectedState extends ProcessState {
-  ProcessSelectedState(this.selectedProcess);
+  const ProcessSelectedState(this.selectedProcess);
   final Process? selectedProcess;
 
   @override
@@ -17,7 +19,7 @@ class ProcessSelectedState extends ProcessState {
 }
 
 class ProcessDeselectedState extends ProcessState {
-  ProcessDeselectedState(this.selectedProcess);
+  const ProcessDeselectedState(this.selectedProcess);
   final Process? selectedProcess;
 
   @override

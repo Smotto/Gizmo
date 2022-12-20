@@ -139,15 +139,17 @@ class RightSide extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        color: Colors.blueGrey,
-        child: Column(
-          children: [
-            WindowTitleBarBox(
+      child: Column(
+        children: [
+          Container(
+            color: Colors.blueAccent,
+            child: WindowTitleBarBox(
               child: Row(
                 children: [
                   Expanded(
-                    child: MoveWindow(),
+                    child: MoveWindow(
+                      child: const Center(child: Text("Hi")),
+                    ),
                   ),
                   MinimizeWindowButton(
                     colors: WindowButtonColors(normal: Colors.green),
@@ -162,168 +164,211 @@ class RightSide extends StatelessWidget {
                 ],
               ),
             ),
-            BlocBuilder<ScanBloc, ScanState>(
-              builder: (context, state) {
-                return Expanded(
-                  child: Container(
-                    alignment: Alignment.centerRight,
-                    color: Colors.white,
-                    child: DataTable(
-                        sortColumnIndex: 0,
-                        sortAscending: true,
-                        columns: const <DataColumn>[
-                          DataColumn(label: Text("Address")),
-                          DataColumn(label: Text("Value"), numeric: true),
-                          DataColumn(label: Text("Previous Value"), numeric: true),
-                          DataColumn(label: Text("Label")),
-                        ],
-                        rows: const <DataRow>[
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
-                          DataRow(cells: [
-                            DataCell(Text('0x00000000')),
-                            DataCell(Text('0')),
-                            DataCell(Text('9999999999')),
-                            DataCell(Text('label'), placeholder: true)
-                          ]),
+          ),
+          BlocBuilder<ScanBloc, ScanState>(
+            builder: (context, state) {
+              return Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      color: Colors.white,
+                      child: SingleChildScrollView(
+                        child: DataTable(
+                            sortColumnIndex: 0,
+                            sortAscending: true,
+                            columns: const <DataColumn>[
+                              DataColumn(label: Text("Address")),
+                              DataColumn(label: Text("Value"), numeric: true),
+                              DataColumn(label: Text("Previous Value"), numeric: true),
+                              DataColumn(label: Text("Label")),
+                            ],
+                            rows: const <DataRow>[
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
+                              DataRow(cells: [
+                                DataCell(Text('0x00000000')),
+                                DataCell(Text('0')),
+                                DataCell(Text('9999999999')),
+                                DataCell(Text('label'), placeholder: true)
+                              ]),
 
-                        ]),
-                  ),
-                );
-              },
-            )
-          ],
-        ),
+                            ]),
+                      ),
+                    ),
+                    Container(
+                      alignment: AlignmentDirectional.topCenter,
+                      color: Colors.lightBlueAccent,
+                      width: 250,
+                      child: Column(
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                            child: TextField(
+                              decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: 'Enter value',
+                              ),
+                            ),
+                          ),
+                          DropdownButton<String>(
+                            value: context.read<ScanBloc>().selectedDataType,
+                            icon: const Icon(Icons.arrow_downward),
+                            elevation: 16,
+                            style: const TextStyle(color: Colors.deepPurple),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String? value) {
+                              // This is called when the user selects an item.
+                              context.read<ScanBloc>().add(SelectDataTypeEvent(value!));
+                            },
+                            items: context.read<ScanBloc>().dataTypes.map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          )
+        ],
       ),
     );
   }
