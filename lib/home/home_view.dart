@@ -1,6 +1,7 @@
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gizmo/home/blocs/hex_bloc/hex_bloc.dart';
 import 'package:gizmo/models/process.dart';
 import '../theme/cubit/theme_cubit.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
@@ -48,6 +49,13 @@ class LeftSide extends StatelessWidget {
                   onPressed: () {
                     _scaffoldKey.currentState?.openDrawer();
                   });
+            },
+          ),
+          BlocBuilder<ProjectBloc, ProjectState>(
+            builder: (context, state) {
+              return IconButton(
+                  icon: const Icon(Icons.folder, color: Colors.lightBlueAccent),
+                  onPressed: () {});
             },
           ),
         ],
@@ -179,7 +187,8 @@ class RightSide extends StatelessWidget {
                             columns: const <DataColumn>[
                               DataColumn(label: Text("Address")),
                               DataColumn(label: Text("Value"), numeric: true),
-                              DataColumn(label: Text("Previous Value"), numeric: true),
+                              DataColumn(
+                                  label: Text("Previous Value"), numeric: true),
                               DataColumn(label: Text("Label")),
                             ],
                             rows: const <DataRow>[
@@ -321,25 +330,27 @@ class RightSide extends StatelessWidget {
                                 DataCell(Text('9999999999')),
                                 DataCell(Text('label'), placeholder: true)
                               ]),
-
                             ]),
                       ),
                     ),
                     Container(
                       alignment: AlignmentDirectional.topCenter,
-                      color: Colors.lightBlueAccent,
+                      color: Colors.blueGrey,
                       width: 250,
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 8, vertical: 16),
                             child: TextField(
                               decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter value',
                               ),
                               onSubmitted: (String? value) {
-                                context.read<ScanBloc>().add(ManualScanEvent(value!));
+                                context
+                                    .read<ScanBloc>()
+                                    .add(ManualScanEvent(value!));
                               },
                             ),
                           ),
@@ -353,10 +364,15 @@ class RightSide extends StatelessWidget {
                               color: Colors.deepPurpleAccent,
                             ),
                             onChanged: (String? value) {
-                              // This is called when the user selects an item.
-                              context.read<ScanBloc>().add(SelectDataTypeEvent(value!));
+                              // Called when use selects data type.
+                              context
+                                  .read<ScanBloc>()
+                                  .add(SelectDataTypeEvent(value!));
                             },
-                            items: context.read<ScanBloc>().dataTypes.map<DropdownMenuItem<String>>((String value) {
+                            items: context
+                                .read<ScanBloc>()
+                                .dataTypes
+                                .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
                                 child: Text(value),
@@ -366,13 +382,46 @@ class RightSide extends StatelessWidget {
                         ],
                       ),
                     ),
+                    Container(
+                      child: BlocBuilder<HexBloc, HexState>(
+                          builder: (context, state) {
+                        return Expanded(
+                            child: Container(
+                          color: Colors.brown,
+                          child: StickyHeadersTable(
+                            initialScrollOffsetX: _scrollOffsetX,
+                            initialScrollOffsetY: _scrollOffsetY,
+                            onEndScrolling: (scrollOffsetX, scrollOffsetY) {
+                              _scrollOffsetX = scrollOffsetX;
+                              _scrollOffsetY = scrollOffsetY;
+                            },
+                            columnsLength: 4,
+                            rowsLength: 4,
+                            columnsTitleBuilder: (int columnIndex) {
+                              // TODO: Build columns
+                            },
+                            rowsTitleBuilder: (int rowIndex) {
+                              // TODO: Build rows
+                            },
+                            contentCellBuilder:
+                                (int columnIndex, int rowIndex) {
+                              // TODO: Build cells
+                                },
+                          ),
+                        ));
+                      }),
+                    )
                   ],
                 ),
               );
             },
-          )
+          ),
         ],
       ),
     );
   }
 }
+
+// ** Temporary variables for testing ** //
+double _scrollOffsetX = 0.0;
+double _scrollOffsetY = 0.0;

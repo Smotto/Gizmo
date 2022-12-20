@@ -27,6 +27,12 @@ class HomePage extends StatelessWidget {
         BlocProvider<ScanBloc>(
           create: (BuildContext context) => ScanBloc(),
         ),
+        BlocProvider<ProjectBloc>(
+          create: (BuildContext context) => ProjectBloc(),
+        ),
+        BlocProvider<HexBloc>(
+          create: (BuildContext context) => HexBloc(),
+        )
       ],
       child: const HomeView(),
     );
