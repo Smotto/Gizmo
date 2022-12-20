@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gizmo/home/bloc/home_bloc.dart';
+import 'blocs/blocs.dart';
 
 import 'home_view.dart';
 
@@ -16,9 +16,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<HomeBloc>(
-        create: (context) => HomeBloc(),
-        child: const HomeView(),
-      );
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<HomeBloc>(
+          create: (BuildContext context) => HomeBloc(),
+        ),
+        BlocProvider<ProcessBloc>(
+          create: (BuildContext context) => ProcessBloc(),
+        ),
+        BlocProvider<ScanBloc>(
+          create: (BuildContext context) => ScanBloc(),
+        ),
+      ],
+      child: const HomeView(),
+    );
   }
 }
