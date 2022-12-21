@@ -58,6 +58,13 @@ class LeftSide extends StatelessWidget {
                   onPressed: () {});
             },
           ),
+          BlocBuilder<DebuggerBloc, DebuggerState>(
+            builder: (context, state) {
+              return IconButton(
+                  icon: const Icon(Icons.bug_report_rounded, color: Colors.redAccent),
+                  onPressed: () {});
+            },
+          ),
         ],
       ),
     );
@@ -150,27 +157,35 @@ class RightSide extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            color: Colors.blueAccent,
-            child: WindowTitleBarBox(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: MoveWindow(
-                      child: const Center(child: Text("Hi")),
-                    ),
+            color: Colors.black12,
+            child: Column(
+              children: [
+                WindowTitleBarBox(
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: MoveWindow(
+                          child: const Center(child: Text("Current attached Process")),
+                        ),
+                      ),
+                      MinimizeWindowButton(
+                        colors: WindowButtonColors(normal: Colors.green),
+                      ),
+                      MaximizeWindowButton(
+                        colors: WindowButtonColors(normal: Colors.green),
+                      ),
+                      CloseWindowButton(
+                        colors: WindowButtonColors(
+                            normal: Colors.green, mouseOver: Colors.redAccent),
+                      ),
+                    ],
                   ),
-                  MinimizeWindowButton(
-                    colors: WindowButtonColors(normal: Colors.green),
-                  ),
-                  MaximizeWindowButton(
-                    colors: WindowButtonColors(normal: Colors.green),
-                  ),
-                  CloseWindowButton(
-                    colors: WindowButtonColors(
-                        normal: Colors.green, mouseOver: Colors.redAccent),
-                  ),
-                ],
-              ),
+                ),
+                LinearProgressIndicator(
+                  value: null,
+                  semanticsLabel: 'Circular progress indicator',
+                ),
+              ],
             ),
           ),
           BlocBuilder<ScanBloc, ScanState>(
@@ -378,39 +393,31 @@ class RightSide extends StatelessWidget {
                                 child: Text(value),
                               );
                             }).toList(),
-                          )
+                          ),
+
                         ],
                       ),
                     ),
-                    Container(
-                      child: BlocBuilder<HexBloc, HexState>(
-                          builder: (context, state) {
-                        return Expanded(
-                            child: Container(
-                          color: Colors.brown,
-                          child: StickyHeadersTable(
-                            initialScrollOffsetX: _scrollOffsetX,
-                            initialScrollOffsetY: _scrollOffsetY,
-                            onEndScrolling: (scrollOffsetX, scrollOffsetY) {
-                              _scrollOffsetX = scrollOffsetX;
-                              _scrollOffsetY = scrollOffsetY;
-                            },
-                            columnsLength: 4,
-                            rowsLength: 4,
-                            columnsTitleBuilder: (int columnIndex) {
-                              // TODO: Build columns
-                            },
-                            rowsTitleBuilder: (int rowIndex) {
-                              // TODO: Build rows
-                            },
-                            contentCellBuilder:
-                                (int columnIndex, int rowIndex) {
-                              // TODO: Build cells
-                                },
-                          ),
-                        ));
-                      }),
-                    )
+                    BlocBuilder<HexBloc, HexState>(
+                        builder: (context, state) {
+                      return Expanded(
+                          child: Container(
+                        color: Colors.brown,
+                        child: StickyHeadersTable(
+                          initialScrollOffsetX: _scrollOffsetX,
+                          initialScrollOffsetY: _scrollOffsetY,
+                          onEndScrolling: (scrollOffsetX, scrollOffsetY) {
+                            _scrollOffsetX = scrollOffsetX;
+                            _scrollOffsetY = scrollOffsetY;
+                          },
+                          columnsLength: titleColumn.length,
+                          rowsLength: titleRow.length,
+                          columnsTitleBuilder: (i) => Text(titleColumn[i]),
+                          rowsTitleBuilder: (i) => Text(titleRow[i]),
+                          contentCellBuilder: (i, j) => Text(data[i][j]),
+                        ),
+                      ));
+                    })
                   ],
                 ),
               );
@@ -425,3 +432,15 @@ class RightSide extends StatelessWidget {
 // ** Temporary variables for testing ** //
 double _scrollOffsetX = 0.0;
 double _scrollOffsetY = 0.0;
+var titleColumn = ["Memes", "dood", "heyyy"];
+var titleRow = ["dank"];
+var data = [
+  ["1"],["2"],["3"],
+  ["4"],["5"],["6"],
+  ["7"],["8"],["9"],
+  ["1"],["2"],["3"],
+  ["1"],["2"],["3"]
+];
+// titleColumn - List<String> (title column)
+// titleColumn - List<String> (title row)
+// titleColumn - List<List<String>> (data)

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gizmo/home/blocs/debugger_bloc/debugger_bloc.dart';
 import 'blocs/blocs.dart';
 
 import 'home_view.dart';
@@ -32,6 +33,9 @@ class HomePage extends StatelessWidget {
         ),
         BlocProvider<HexBloc>(
           create: (BuildContext context) => HexBloc(),
+        ),
+        BlocProvider<DebuggerBloc>(
+          create: (BuildContext context) => DebuggerBloc(),
         )
       ],
       child: const HomeView(),
