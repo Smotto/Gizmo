@@ -44,6 +44,7 @@ class LeftSide extends StatelessWidget {
           BlocBuilder<ProcessBloc, ProcessState>(
             builder: (context, state) {
               return IconButton(
+                  highlightColor: Colors.lightGreenAccent,
                   icon: Icon(Icons.electrical_services_sharp,
                       color: context.read<ProcessBloc>().plugIconColor),
                   onPressed: () {
@@ -54,15 +55,21 @@ class LeftSide extends StatelessWidget {
           BlocBuilder<ProjectBloc, ProjectState>(
             builder: (context, state) {
               return IconButton(
+                  highlightColor: Colors.lightBlueAccent,
                   icon: const Icon(Icons.folder, color: Colors.lightBlueAccent),
                   onPressed: () {});
             },
           ),
           BlocBuilder<DebuggerBloc, DebuggerState>(
             builder: (context, state) {
-              return IconButton(
-                  icon: const Icon(Icons.bug_report_rounded, color: Colors.redAccent),
-                  onPressed: () {});
+              return Hero(
+                tag: "debugger",
+                child: IconButton(
+                    highlightColor: Colors.redAccent,
+                    icon: const Icon(Icons.bug_report_rounded,
+                        color: Colors.redAccent),
+                    onPressed: () {}),
+              );
             },
           ),
         ],
@@ -165,7 +172,8 @@ class RightSide extends StatelessWidget {
                     children: [
                       Expanded(
                         child: MoveWindow(
-                          child: const Center(child: Text("Current attached Process")),
+                          child: const Center(
+                              child: Text("Current attached Process")),
                         ),
                       ),
                       MinimizeWindowButton(
@@ -182,6 +190,8 @@ class RightSide extends StatelessWidget {
                   ),
                 ),
                 LinearProgressIndicator(
+                  backgroundColor: Colors.blueGrey,
+                  color: Colors.lightBlueAccent,
                   value: null,
                   semanticsLabel: 'Circular progress indicator',
                 ),
@@ -348,17 +358,26 @@ class RightSide extends StatelessWidget {
                             ]),
                       ),
                     ),
-                    Container(
-                      alignment: AlignmentDirectional.topCenter,
-                      color: Colors.blueGrey,
-                      width: 250,
+                    Expanded(
                       child: Column(
                         children: [
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 16),
                             child: TextField(
-                              decoration: const InputDecoration(
+                              decoration: InputDecoration(
+                                prefixIcon: IconButton(
+                                    onPressed: () => {},
+                                    color: Colors.green,
+                                    icon: const Icon(Icons.play_arrow)),
+                                suffixIcon: IconButton(
+                                  color: Colors.lightBlueAccent,
+                                  icon: Icon(Icons.cancel),
+                                  onPressed: () {
+                                    print("Cancel icon activated.");
+                                  },
+                                ),
+                                label: Text("Manual Scan"),
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter value',
                               ),
@@ -394,15 +413,13 @@ class RightSide extends StatelessWidget {
                               );
                             }).toList(),
                           ),
-
                         ],
                       ),
                     ),
-                    BlocBuilder<HexBloc, HexState>(
-                        builder: (context, state) {
+                    BlocBuilder<HexBloc, HexState>(builder: (context, state) {
                       return Expanded(
                           child: Container(
-                        color: Colors.brown,
+                        color: Colors.grey,
                         child: StickyHeadersTable(
                           initialScrollOffsetX: _scrollOffsetX,
                           initialScrollOffsetY: _scrollOffsetY,
@@ -432,14 +449,25 @@ class RightSide extends StatelessWidget {
 // ** Temporary variables for testing ** //
 double _scrollOffsetX = 0.0;
 double _scrollOffsetY = 0.0;
-var titleColumn = ["Memes", "dood", "heyyy"];
-var titleRow = ["dank"];
+var titleColumn = ["col 0", "col 1", "col 2"];
+var titleRow = ["row 0"];
 var data = [
-  ["1"],["2"],["3"],
-  ["4"],["5"],["6"],
-  ["7"],["8"],["9"],
-  ["1"],["2"],["3"],
-  ["1"],["2"],["3"]
+  ["0"],
+  ["1"],
+  ["2"],
+  ["3"],
+  ["4"],
+  ["5"],
+  ["6"],
+  ["7"],
+  ["8"],
+  ["9"],
+  ["1"],
+  ["2"],
+  ["3"],
+  ["1"],
+  ["2"],
+  ["3"]
 ];
 // titleColumn - List<String> (title column)
 // titleColumn - List<String> (title row)
