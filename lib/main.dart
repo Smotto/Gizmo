@@ -57,7 +57,7 @@ class App extends StatelessWidget {
 /// A [StatelessWidget] that:
 /// * reacts to state changes in the [ThemeCubit]
 /// and updates the theme of the [MaterialApp].
-/// * renders the [CounterPage].
+/// * renders the [HomePage].
 /// {@endtemplate}
 class AppView extends StatelessWidget {
   /// {@macro app_view}
