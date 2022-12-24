@@ -403,9 +403,7 @@ class RightSide extends StatelessWidget {
                                   .read<ScanBloc>()
                                   .add(SelectDataTypeEvent(value!));
                             },
-                            items: context
-                                .read<ScanBloc>()
-                                .dataTypes
+                            items: dataTypes
                                 .map<DropdownMenuItem<String>>((String value) {
                               return DropdownMenuItem<String>(
                                 value: value,
@@ -445,6 +443,8 @@ class RightSide extends StatelessWidget {
     );
   }
 }
+
+var dataTypes = ["Integer", "Float", "Double", "String", "Byte", "Short"];
 
 // ** Temporary variables for testing ** //
 double _scrollOffsetX = 0.0;

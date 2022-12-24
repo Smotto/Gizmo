@@ -8,7 +8,6 @@ part 'scan_event.dart';
 part 'scan_state.dart';
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
-  List<String> dataTypes = <String>['Integer', 'Float', 'Double', 'Byte'];
   String selectedDataType = 'Integer';
 
   ScanBloc() : super(ScanInitial()) {

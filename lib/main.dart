@@ -1,7 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:gizmo/home/home_page.dart';
-import 'counter/counter.dart';
 import 'theme/theme.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
