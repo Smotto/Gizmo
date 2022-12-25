@@ -70,29 +70,32 @@ class _ScanViewState extends State<ScanView> with TickerProviderStateMixin {
               Expanded(
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8, vertical: 16),
-                      child: TextField(
-                        decoration: InputDecoration(
-                          prefixIcon: IconButton(
-                              onPressed: () => {},
-                              color: Colors.green,
-                              icon: const Icon(Icons.play_arrow)),
-                          suffixIcon: IconButton(
-                            color: Colors.lightBlueAccent,
-                            icon: Icon(Icons.cancel),
-                            onPressed: () {
-                              print("Cancel icon activated.");
-                            },
+                    SizedBox(
+                      width: 300,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 8, vertical: 16),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            prefixIcon: IconButton(
+                                onPressed: () => {},
+                                color: Colors.green,
+                                icon: const Icon(Icons.play_arrow)),
+                            suffixIcon: IconButton(
+                              color: Colors.lightBlueAccent,
+                              icon: Icon(Icons.cancel),
+                              onPressed: () {
+                                print("Cancel icon activated.");
+                              },
+                            ),
+                            label: const Text("Manual Scan"),
+                            border: const OutlineInputBorder(),
+                            hintText: 'Enter value',
                           ),
-                          label: const Text("Manual Scan"),
-                          border: const OutlineInputBorder(),
-                          hintText: 'Enter value',
+                          onSubmitted: (String? value) {
+                            context.read<ScanBloc>().add(ManualScanEvent(value!));
+                          },
                         ),
-                        onSubmitted: (String? value) {
-                          context.read<ScanBloc>().add(ManualScanEvent(value!));
-                        },
                       ),
                     ),
                     DropdownButton<String>(
@@ -132,26 +135,27 @@ class _ScanViewState extends State<ScanView> with TickerProviderStateMixin {
                   ],
                 ),
               ),
-              BlocBuilder<HexBloc, HexState>(builder: (context, state) {
-                return Expanded(
-                  child: Container(
-                    color: Colors.grey,
-                    child: StickyHeadersTable(
-                      initialScrollOffsetX: _scrollOffsetX,
-                      initialScrollOffsetY: _scrollOffsetY,
-                      onEndScrolling: (scrollOffsetX, scrollOffsetY) {
-                        _scrollOffsetX = scrollOffsetX;
-                        _scrollOffsetY = scrollOffsetY;
-                      },
-                      columnsLength: titleColumn.length,
-                      rowsLength: titleRow.length,
-                      columnsTitleBuilder: (i) => Text(titleColumn[i]),
-                      rowsTitleBuilder: (i) => Text(titleRow[i]),
-                      contentCellBuilder: (i, j) => Text(data[i][j]),
-                    ),
-                  ),
-                );
-              }),
+              // TODO: Implement Hex Editor Widget
+              // BlocBuilder<HexBloc, HexState>(builder: (context, state) {
+              //   return Expanded(
+              //     child: Container(
+              //       color: Colors.grey,
+              //       child: StickyHeadersTable(
+              //         initialScrollOffsetX: _scrollOffsetX,
+              //         initialScrollOffsetY: _scrollOffsetY,
+              //         onEndScrolling: (scrollOffsetX, scrollOffsetY) {
+              //           _scrollOffsetX = scrollOffsetX;
+              //           _scrollOffsetY = scrollOffsetY;
+              //         },
+              //         columnsLength: titleColumn.length,
+              //         rowsLength: titleRow.length,
+              //         columnsTitleBuilder: (i) => Text(titleColumn[i]),
+              //         rowsTitleBuilder: (i) => Text(titleRow[i]),
+              //         contentCellBuilder: (i, j) => Text(data[i][j]),
+              //       ),
+              //     ),
+              //   );
+              // }),
             ],
           ),
         );

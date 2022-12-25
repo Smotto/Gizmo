@@ -25,11 +25,10 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   FutureOr<void> _manualScanHandler(
       ManualScanEvent event, Emitter<ScanState> emit) async {
     if (event.scanValue.isNotEmpty) {
-      progressValue = 0;
       emit(Scanning(event.scanValue));
-      progressValue = 50;
+      progressValue = 0.9;
       // TODO: Implement scanning on map of addresses
-      await Future.delayed(const Duration(seconds: 1));
+      await Future.delayed(const Duration(milliseconds: 500));
 
       emit(ScanComplete(event.scanValue));
       progressValue = 0;
