@@ -118,16 +118,17 @@ class _ScanViewState extends State<ScanView> with TickerProviderStateMixin {
                         );
                       }).toList(),
                     ),
+                    const SizedBox(height: 20,),
                     Expanded(
                       child: Container(
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            border: Border.all(color: Colors.greenAccent),
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                           ),
                         child: SavedScanResults(),
                       ),
                     ),
+                    const SizedBox(height: 40,),
                   ],
                 ),
               ),

@@ -47,7 +47,9 @@ class LeftHackerMenu extends StatelessWidget {
               return IconButton(
                   highlightColor: Colors.lightGreenAccent,
                   icon: Icon(Icons.electrical_services_sharp,
-                      color: context.read<ProcessBloc>().plugIconColor),
+                      color: context
+                          .read<ProcessBloc>()
+                          .plugIconColor),
                   onPressed: () {
                     _scaffoldKey.currentState?.openDrawer();
                   });
@@ -114,11 +116,17 @@ class RightSide extends StatelessWidget {
                     ],
                   ),
                 ),
-               const LinearProgressIndicator(
-                  backgroundColor: Colors.blueGrey,
-                  color: Colors.lightBlueAccent,
-                  value: null,
-                  semanticsLabel: 'Circular progress indicator',
+                BlocBuilder<ScanBloc, ScanState>(
+                  builder: (context, state) {
+                    return LinearProgressIndicator(
+                      backgroundColor: Colors.blueGrey,
+                      color: Colors.lightBlueAccent,
+                      value: context
+                          .read<ScanBloc>()
+                          .progressValue,
+                      semanticsLabel: 'Circular progress indicator',
+                    );
+                  },
                 ),
               ],
             ),

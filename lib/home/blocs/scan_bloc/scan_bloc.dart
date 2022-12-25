@@ -9,6 +9,7 @@ part 'scan_state.dart';
 
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
   String selectedDataType = 'Integer';
+  double progressValue = 0.0;
 
   ScanBloc() : super(ScanInitial()) {
     on<SelectDataTypeEvent>(_selectDataTypeHandler);
@@ -24,12 +25,14 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
   FutureOr<void> _manualScanHandler(
       ManualScanEvent event, Emitter<ScanState> emit) async {
     if (event.scanValue.isNotEmpty) {
+      progressValue = 0;
       emit(Scanning(event.scanValue));
-
+      progressValue = 50;
       // TODO: Implement scanning on map of addresses
       await Future.delayed(const Duration(seconds: 1));
 
       emit(ScanComplete(event.scanValue));
+      progressValue = 0;
     }
   }
 }
