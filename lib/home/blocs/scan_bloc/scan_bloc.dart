@@ -29,7 +29,6 @@ class ScanBloc extends Bloc<ScanEvent, ScanState> {
       progressValue = 0.9;
       // TODO: Implement scanning on map of addresses
       await Future.delayed(const Duration(milliseconds: 500));
-
       emit(ScanComplete(event.scanValue));
       progressValue = 0;
     }

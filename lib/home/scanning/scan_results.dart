@@ -8,6 +8,9 @@ class ScanResults extends StatefulWidget {
 }
 
 class _ScanResultsState extends State<ScanResults> {
+  static const int numItems = 20;
+  List<bool> selected = List<bool>.generate(numItems, (int index) => false);
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -21,146 +24,35 @@ class _ScanResultsState extends State<ScanResults> {
             DataColumn(label: Text("Previous Value"), numeric: true),
             DataColumn(label: Text("Label")),
           ],
-          rows: const <DataRow>[
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-            DataRow(cells: [
-              DataCell(Text('0x00000000')),
-              DataCell(Text('0')),
-              DataCell(Text('9999999999')),
-              DataCell(Text('label'), placeholder: true)
-            ]),
-          ]),
+          rows: List<DataRow>.generate(numItems, (int index) => DataRow(
+              color: MaterialStateProperty.resolveWith<Color?>(
+                      (Set<MaterialState> states) {
+                    // All rows will have the same selected color.
+                    if (states.contains(MaterialState.selected)) {
+                      return Theme.of(context).colorScheme.primary.withOpacity(0.08);
+                    }
+                    // Even rows will have a grey color.
+                    if (index.isEven) {
+                      return Colors.grey.withOpacity(0.3);
+                    }
+                    return null; // Use default value for other states and odd rows.
+                  }),
+              cells: <DataCell>[
+                DataCell(Text('$index')),
+                DataCell(Text('0')),
+                DataCell(Text('9999999999')),
+                DataCell(Text('label'), placeholder: true),
+              ],
+            selected: selected[index],
+            onSelectChanged: (bool? value) {
+              setState(() {
+                selected[index] = value!;
+              });
+            },),
+
+    ),
+
+      ),
     );
   }
 }
