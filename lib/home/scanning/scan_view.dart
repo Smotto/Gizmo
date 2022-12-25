@@ -118,7 +118,13 @@ class _ScanViewState extends State<ScanView> with TickerProviderStateMixin {
                         );
                       }).toList(),
                     ),
-                    Expanded(child: SavedScanResults()),
+                    Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.greenAccent),
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                        ),
+                        child: Expanded(child: SavedScanResults())),
                   ],
                 ),
               ),
