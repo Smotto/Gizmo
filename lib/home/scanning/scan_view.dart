@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gizmo/home/saved/saved_scan_results.dart';
 import 'package:gizmo/home/scanning/scan_results.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 
@@ -40,33 +41,32 @@ class _ScanViewState extends State<ScanView> with TickerProviderStateMixin {
           child: Row(
             children: [
               Expanded(
-                  child: Column(
-                children: [
-                  TabBar(
-                    controller: _tabController,
-                    tabs: [
-                      Tab(text: "Scan Results"),
-                      Tab(text: "Pointer Results"),
-                      Tab(icon: Icon(Icons.directions_bike))
-                    ],
-                  ),
-                  Expanded(
-                    child: TabBarView(
+                child: Column(
+                  children: [
+                    TabBar(
                       controller: _tabController,
-                      children: [
-                        Container(
-                          color: Colors.white,
-                          child: SingleChildScrollView(
-                            child: ScanResults(),
-                          ),
-                        ),
-                        Icon(Icons.control_point),
-                        SvgPicture.asset('assets/images/hamster.svg'),
+                      tabs: [
+                        Tab(text: "Scan Results"),
+                        Tab(text: "Pointer Results"),
+                        Tab(icon: Icon(Icons.directions_bike))
                       ],
                     ),
-                  ),
-                ],
-              )),
+                    Expanded(
+                      child: TabBarView(
+                        controller: _tabController,
+                        children: [
+                          Container(
+                            color: Colors.white,
+                            child: ScanResults(),
+                          ),
+                          Icon(Icons.control_point),
+                          SvgPicture.asset('assets/images/hamster.svg'),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               Expanded(
                 child: Column(
                   children: [
@@ -118,6 +118,7 @@ class _ScanViewState extends State<ScanView> with TickerProviderStateMixin {
                         );
                       }).toList(),
                     ),
+                    Expanded(child: SavedScanResults()),
                   ],
                 ),
               ),
