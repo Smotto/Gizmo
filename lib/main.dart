@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:gizmo/home/home_page.dart';
+import 'package:gizmo/home/home.dart';
+import 'package:gizmo/playground/playground_page.dart';
 import 'theme/theme.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
 
@@ -11,7 +12,7 @@ void main() async {
   runApp(const App());
 
   doWhenWindowReady(() {
-    const initialSize = Size(1368, 672);
+    const initialSize = Size(1600, 900);
     appWindow.minSize = initialSize;
     appWindow.size = initialSize;
     appWindow.alignment = Alignment.center;

@@ -1,18 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gizmo/home/scanning/scan_results.dart';
 import 'package:table_sticky_headers/table_sticky_headers.dart';
 
 import '/home/blocs/blocs.dart';
 
-class ScanView extends StatefulWidget
-{
+class ScanView extends StatefulWidget {
   const ScanView({super.key});
 
   @override
   State<ScanView> createState() => _ScanViewState();
 }
 
-class _ScanViewState extends State<ScanView> {
+class _ScanViewState extends State<ScanView> with TickerProviderStateMixin {
+  late TabController _tabController;
+  late AnimationController _animationController;
+
+  // Initial State of the Scan View Starts with a Tab Controller
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(length: 3, vsync: this);
+    _animationController = AnimationController(vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ScanBloc, ScanState>(
@@ -20,161 +39,34 @@ class _ScanViewState extends State<ScanView> {
         return Expanded(
           child: Row(
             children: [
-              Container(
-                color: Colors.white,
-                child: SingleChildScrollView(
-                  child: DataTable(
-                      sortColumnIndex: 0,
-                      sortAscending: true,
-                      columns: const <DataColumn>[
-                        DataColumn(label: Text("Address")),
-                        DataColumn(label: Text("Value"), numeric: true),
-                        DataColumn(
-                            label: Text("Previous Value"), numeric: true),
-                        DataColumn(label: Text("Label")),
+              Expanded(
+                  child: Column(
+                children: [
+                  TabBar(
+                    controller: _tabController,
+                    tabs: [
+                      Tab(text: "Scan Results"),
+                      Tab(text: "Pointer Results"),
+                      Tab(icon: Icon(Icons.directions_bike))
+                    ],
+                  ),
+                  Expanded(
+                    child: TabBarView(
+                      controller: _tabController,
+                      children: [
+                        Container(
+                          color: Colors.white,
+                          child: SingleChildScrollView(
+                            child: ScanResults(),
+                          ),
+                        ),
+                        Icon(Icons.control_point),
+                        SvgPicture.asset('assets/images/hamster.svg'),
                       ],
-                      rows: const <DataRow>[
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                        DataRow(cells: [
-                          DataCell(Text('0x00000000')),
-                          DataCell(Text('0')),
-                          DataCell(Text('9999999999')),
-                          DataCell(Text('label'), placeholder: true)
-                        ]),
-                      ]),
-                ),
-              ),
+                    ),
+                  ),
+                ],
+              )),
               Expanded(
                 child: Column(
                   children: [
@@ -199,9 +91,7 @@ class _ScanViewState extends State<ScanView> {
                           hintText: 'Enter value',
                         ),
                         onSubmitted: (String? value) {
-                          context
-                              .read<ScanBloc>()
-                              .add(ManualScanEvent(value!));
+                          context.read<ScanBloc>().add(ManualScanEvent(value!));
                         },
                       ),
                     ),
@@ -233,23 +123,24 @@ class _ScanViewState extends State<ScanView> {
               ),
               BlocBuilder<HexBloc, HexState>(builder: (context, state) {
                 return Expanded(
-                    child: Container(
-                      color: Colors.grey,
-                      child: StickyHeadersTable(
-                        initialScrollOffsetX: _scrollOffsetX,
-                        initialScrollOffsetY: _scrollOffsetY,
-                        onEndScrolling: (scrollOffsetX, scrollOffsetY) {
-                          _scrollOffsetX = scrollOffsetX;
-                          _scrollOffsetY = scrollOffsetY;
-                        },
-                        columnsLength: titleColumn.length,
-                        rowsLength: titleRow.length,
-                        columnsTitleBuilder: (i) => Text(titleColumn[i]),
-                        rowsTitleBuilder: (i) => Text(titleRow[i]),
-                        contentCellBuilder: (i, j) => Text(data[i][j]),
-                      ),
-                    ));
-              })
+                  child: Container(
+                    color: Colors.grey,
+                    child: StickyHeadersTable(
+                      initialScrollOffsetX: _scrollOffsetX,
+                      initialScrollOffsetY: _scrollOffsetY,
+                      onEndScrolling: (scrollOffsetX, scrollOffsetY) {
+                        _scrollOffsetX = scrollOffsetX;
+                        _scrollOffsetY = scrollOffsetY;
+                      },
+                      columnsLength: titleColumn.length,
+                      rowsLength: titleRow.length,
+                      columnsTitleBuilder: (i) => Text(titleColumn[i]),
+                      rowsTitleBuilder: (i) => Text(titleRow[i]),
+                      contentCellBuilder: (i, j) => Text(data[i][j]),
+                    ),
+                  ),
+                );
+              }),
             ],
           ),
         );
@@ -283,4 +174,3 @@ var data = [
   ["2"],
   ["3"]
 ];
-
