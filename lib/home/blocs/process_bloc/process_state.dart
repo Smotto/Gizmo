@@ -25,3 +25,10 @@ class ProcessDeselectedState extends ProcessState {
   @override
   List<Object?> get props => [selectedProcess];
 }
+
+class AllProcessesRefreshed extends ProcessState {
+  const AllProcessesRefreshed();
+
+  @override
+  List<Object?> get props => [];
+}

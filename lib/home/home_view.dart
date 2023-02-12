@@ -46,11 +46,9 @@ class LeftHackerMenu extends StatelessWidget {
             builder: (context, state) {
               return IconButton(
                   highlightColor: Colors.lightGreenAccent,
-                  icon: Icon(Icons.electrical_services_sharp,
-                      color: context
-                          .read<ProcessBloc>()
-                          .plugIconColor),
+                  icon: Icon(Icons.electrical_services_sharp, color: context.read<ProcessBloc>().plugIconColor),
                   onPressed: () {
+                    context.read<ProcessBloc>().add(const OpenDrawerEvent());
                     _scaffoldKey.currentState?.openDrawer();
                   });
             },
@@ -69,8 +67,7 @@ class LeftHackerMenu extends StatelessWidget {
                 tag: "debugger",
                 child: IconButton(
                     highlightColor: Colors.redAccent,
-                    icon: const Icon(Icons.bug_report_rounded,
-                        color: Colors.redAccent),
+                    icon: const Icon(Icons.bug_report_rounded, color: Colors.redAccent),
                     onPressed: () {}),
               );
             },
@@ -80,7 +77,6 @@ class LeftHackerMenu extends StatelessWidget {
     );
   }
 }
-
 
 class RightSide extends StatelessWidget {
   const RightSide({super.key});
@@ -95,23 +91,65 @@ class RightSide extends StatelessWidget {
             child: Column(
               children: [
                 WindowTitleBarBox(
-                  child: Row(
+                  child: Stack(
                     children: [
-                      Expanded(
-                        child: MoveWindow(
-                          child: const Center(
-                              child: Text("Current attached Process")),
+                      BlocBuilder<ProcessBloc, ProcessState>(
+                        builder: (context, state) {
+                          if (state is ProcessSelectedState) {
+                            return Align(
+                              child: MoveWindow(
+                                child: Center(child: Text(
+                                    style: const TextStyle(fontWeight: FontWeight.w500),
+                                    context.read<ProcessBloc>().selectedProcess!.name)),
+                              ),
+                            );
+                          }
+                          else if (state is ProcessDeselectedState) {
+                            return Align(
+                              child: MoveWindow(
+                                child: const Center(child: Text(
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                    "No process selected.")),
+                              ),
+                            );
+                          }
+                          else if (state is AllProcessesRefreshed && context.read<ProcessBloc>().selectedProcess!.isActive) {
+                            return Align(
+                              child: MoveWindow(
+                                child: Center(child: Text(
+                                    style: const TextStyle(fontWeight: FontWeight.w500),
+                                    context.read<ProcessBloc>().selectedProcess!.name)),
+                              ),
+                            );
+                          }
+                          else {
+                            return Align(
+                              child: MoveWindow(
+                                child: const Center(child: Text(
+                                    style: TextStyle(fontWeight: FontWeight.w500),
+                                    "No process selected.")),
+                              ),
+                            );
+                          }
+                        },
+                      ),
+                      Positioned(
+                        right: 92,
+                        child: MinimizeWindowButton(
+                          colors: WindowButtonColors(normal: Colors.green),
                         ),
                       ),
-                      MinimizeWindowButton(
-                        colors: WindowButtonColors(normal: Colors.green),
+                      Positioned(
+                        right: 46,
+                        child: MaximizeWindowButton(
+                          colors: WindowButtonColors(normal: Colors.green),
+                        ),
                       ),
-                      MaximizeWindowButton(
-                        colors: WindowButtonColors(normal: Colors.green),
-                      ),
-                      CloseWindowButton(
-                        colors: WindowButtonColors(
-                            normal: Colors.green, mouseOver: Colors.redAccent),
+                      Positioned(
+                        right: 0,
+                        child: CloseWindowButton(
+                          colors: WindowButtonColors(normal: Colors.green, mouseOver: Colors.redAccent),
+                        ),
                       ),
                     ],
                   ),
@@ -121,9 +159,7 @@ class RightSide extends StatelessWidget {
                     return LinearProgressIndicator(
                       backgroundColor: Colors.blueGrey,
                       color: Colors.lightBlueAccent,
-                      value: context
-                          .read<ScanBloc>()
-                          .progressValue,
+                      value: context.read<ScanBloc>().progressValue,
                       semanticsLabel: 'Circular progress indicator',
                     );
                   },

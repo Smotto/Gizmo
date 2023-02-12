@@ -12,3 +12,10 @@ class SelectProcessEvent extends ProcessEvent {
   @override
   List<Object> get props => [selectedProcess];
 }
+
+class OpenDrawerEvent extends ProcessEvent {
+  const OpenDrawerEvent();
+
+  @override
+  List<Object> get props => [];
+}

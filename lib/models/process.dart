@@ -1,13 +1,3 @@
-class Process
-{
-  final String name;
-  final int pID;
-  bool isActive;
+import 'dart:collection';
 
-  Process(this.name, this.pID, this.isActive);
-
-  // TODO: Call Gizmo engine.
-  static List<Process> fetchAll(){
-    return [];
-  }
-}
+import 'package:gizmo_engine/gizmo_engine.dart';

@@ -21,57 +21,26 @@ class LeftDrawer extends StatelessWidget {
             BlocBuilder<ProcessBloc, ProcessState>(
               builder: (context, state) {
                 return Expanded(
-                  child: ListView(children: [
-                    Card(
+                    child: ListView.builder(
+                  itemCount: context.read<ProcessBloc>().processes.length,
+                  itemBuilder: (context, index) {
+                    return Card(
                       child: ListTile(
-                        selected:
-                        context.read<ProcessBloc>().processes[0].isActive,
+                        selected: context.read<ProcessBloc>().processes.elementAt(index).isActive,
                         selectedColor: Colors.white,
                         selectedTileColor: Colors.blueGrey,
                         leading: const FlutterLogo(),
-                        title:
-                        Text(context.read<ProcessBloc>().processes[0].name),
+                        title: Text(context.read<ProcessBloc>().processes.elementAt(index).name),
                         onTap: () => {
-                          context.read<ProcessBloc>().add(SelectProcessEvent(
-                              context.read<ProcessBloc>().processes[0])),
+                          context
+                              .read<ProcessBloc>()
+                              .add(SelectProcessEvent(context.read<ProcessBloc>().processes.elementAt(index))),
                           Navigator.pop(context),
                         },
                       ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        selected:
-                        context.read<ProcessBloc>().processes[1].isActive,
-                        selectedColor: Colors.white,
-                        selectedTileColor: Colors.blueGrey,
-                        leading: const FlutterLogo(),
-                        title:
-                        Text(context.read<ProcessBloc>().processes[1].name),
-                        onTap: () => {
-                          context.read<ProcessBloc>().add(SelectProcessEvent(
-                              context.read<ProcessBloc>().processes[1])),
-                          Navigator.pop(context),
-                        },
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        selected:
-                        context.read<ProcessBloc>().processes[2].isActive,
-                        selectedColor: Colors.white,
-                        selectedTileColor: Colors.blueGrey,
-                        leading: const FlutterLogo(),
-                        title:
-                        Text(context.read<ProcessBloc>().processes[2].name),
-                        onTap: () => {
-                          context.read<ProcessBloc>().add(SelectProcessEvent(
-                              context.read<ProcessBloc>().processes[2])),
-                          Navigator.pop(context),
-                        },
-                      ),
-                    ),
-                  ]),
-                );
+                    );
+                  },
+                ));
               },
             ),
           ],
